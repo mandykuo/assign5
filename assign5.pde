@@ -59,6 +59,7 @@ boolean bulletOpen = false;
 boolean[]bulletShow = new boolean[6];
 int bulletCounter = 0;
 int score = 0;
+int bulletNum = 0;
 
 
 
@@ -178,6 +179,15 @@ void draw() {
 
 
   case GAME_RUN:
+    
+    
+    for(int i = 0; i<5;i++){
+      if(bulletX[i]<0){
+        bulletX[i] =99999999;
+        bulletNum-=1;
+      }
+    }
+    
     //background
     image(bg1, backgroundX, 0);
     image(bg2, backgroundX-640, 0);
@@ -222,6 +232,7 @@ void draw() {
               R1EnemyY[i]=1000;
               text("score:"+score, 50, 450);
               score+=20;
+              bulletNum-=1;
             }
           }
         } else {
@@ -287,6 +298,7 @@ void draw() {
               R2EnemyY[i]=1000;
               text("score:"+score, 50, 450);
               score+=20;
+              bulletNum-=1;
             }
           }
         } else
@@ -371,6 +383,7 @@ void draw() {
                 R3EnemyY1[i]=1000;
                 text("score:"+score, 50, 450);
                 score+=20;
+                bulletNum-=1;
               }
             }
           } else {
@@ -422,6 +435,7 @@ void draw() {
                 R3EnemyY2[i]=1000;
                 text("score:"+score, 50, 450);
                 score+=20;
+                bulletNum-=1;
               }
             }
           } else {
@@ -470,6 +484,7 @@ void draw() {
                 R3EnemyY2[i+1]=1000;
                 text("score:"+score, 50, 450);
                 score+=20;
+                bulletNum-=1;
               }
             }
           } else {
@@ -526,6 +541,7 @@ void draw() {
                 R3EnemyY3[i]=1000;
                 text("score:"+score, 50, 450);
                 score+=20;
+                bulletNum-=1;
               }
             }
           } else {
@@ -573,6 +589,7 @@ void draw() {
                 R3EnemyY3[i+1]=1000;
                 text("score:"+score, 50, 450);
                 score+=20;
+                bulletNum-=1;
               }
             }
           } else {
@@ -725,10 +742,12 @@ void keyPressed() {
     }
   }
 
-  if (key ==' ') {
+  if (key ==' ' && bulletNum <5) {
     bulletOpen = true;
     bulletShow[bulletCounter] = true;
+    bulletNum+=1;
   }
+
 }
 
 void keyReleased() {
@@ -757,11 +776,13 @@ void bulletFunction() {
     bulletY[bulletCounter] = fighterY;
     bulletOpen = false;
     bulletCounter++;
+    
 
     if (bulletCounter == 5) {
       bulletCounter = 0;
     }
   }
+  
 
   for (int i =0; i<5; i++) {
     if (bulletShow[i] ==true) {
@@ -769,7 +790,7 @@ void bulletFunction() {
       bulletX[i]-=3;
     }
 
-    println(bulletX[0], bulletY[0]);
+    //println(bulletX[0], bulletY[0]);
   }
   /*
   for(int j = 0;j<5;j++){
